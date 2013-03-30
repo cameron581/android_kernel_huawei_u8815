@@ -100,6 +100,13 @@ choice
 
 	config DEFAULT_NOOP
 		bool "No-op"
+		
+	config DEFAULT_VR
+		bool "V(R)" if IOSCHED_VR=y
+
+	config DEFAULT_SIO
+		bool "SIO" if IOSCHED_SIO=y
+
 
 endchoice
 
@@ -108,6 +115,8 @@ config DEFAULT_IOSCHED
 	default "deadline" if DEFAULT_DEADLINE
 	default "cfq" if DEFAULT_CFQ
 	default "noop" if DEFAULT_NOOP
+	default "vr" if DEFAULT_VR
+	default "sio" if DEFAULT_SIO
 
 endmenu
 
