@@ -31,3 +31,6 @@ obj-$(CONFIG_RADIO_IRIS) += radio-iris.o
 obj-$(CONFIG_RADIO_IRIS_TRANSPORT) += radio-iris-transport.o
 
 EXTRA_CFLAGS += -Isound
+
+# For compile with gcc 4.6
+CFLAGS_radio-tavarua.o = -Wno-maybe-uninitialized
