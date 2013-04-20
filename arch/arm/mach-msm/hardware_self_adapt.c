@@ -30,7 +30,6 @@ static __u32	frame_buffer_start = 0;	/* physical start address */
 #endif
 
 #ifdef CONFIG_FRAMEBUF_SELF_ADAPT_HACK
-#define BL_BUF_BLOCK 1048576
 static bool frame_buffer_boosted = false;
 #endif
 
@@ -98,9 +97,9 @@ int __init parse_tag_frame_buffer(const struct tag *tags)
 {
     frame_buffer_size = tags->u.mem.size;
 #ifdef CONFIG_FRAMEBUF_SELF_ADAPT_HACK
-    if(frame_buffer_size < 6 * BL_BUF_BLOCK)
+    if(frame_buffer_size < 6 * 1024 * 1024)
     {
-        frame_buffer_size += BL_BUF_BLOCK;
+        frame_buffer_size += 1024 * 1024;
         frame_buffer_boosted = true;
     }
 #endif
@@ -140,7 +139,7 @@ int __init parse_tag_cust_buffer(const struct tag * tags)
     cust_buffer_start = tags->u.mem.start;
 #ifdef CONFIG_FRAMEBUF_SELF_ADAPT_HACK
     if(frame_buffer_boosted)
-        cust_buffer_start += BL_BUF_BLOCK;
+        cust_buffer_start += 1024 * 1024;
 #endif
 
     printk(KERN_DEBUG "%s: cust addr= 0x%x, size=0x%0x\n", __func__, cust_buffer_start, cust_buffer_size);
