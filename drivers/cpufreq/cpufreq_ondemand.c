@@ -376,6 +376,22 @@ static ssize_t store_sampling_rate(struct kobject *a, struct attribute *b,
 	return count;
 }
 
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+static ssize_t store_two_phase_freq(struct kobject *a, struct attribute *b,
+                                   const char *buf, size_t count)
+{
+        unsigned int input;
+        int ret;
+        ret = sscanf(buf, "%u", &input);
+        if (ret != 1)
+                return -EINVAL;
+
+        dbs_tuners_ins.two_phase_freq = input;
+
+        return count;
+}
+#endif
+
 static ssize_t store_io_is_busy(struct kobject *a, struct attribute *b,
 				   const char *buf, size_t count)
 {
